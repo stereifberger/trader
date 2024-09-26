@@ -13,7 +13,7 @@ def categorize_stocks(stock_list, liquidity_threshold):
     liquid = []
     illiquid = []
     for stock in stock_list:
-        avg_volume = api.get_bars(stock, 'day', limit=1)[stock][0].v
+        avg_volume = api.get_bars(stock, TimeFrame.Day, limit=1)[stock][0].v
         if avg_volume >= liquidity_threshold:
             liquid.append(stock)
         else:
