@@ -2,12 +2,13 @@ import pandas as pd
 from alpaca_trade_api.rest import REST
 import datetime
 from alpaca_trade_api.rest import TimeFrame
+from tqdm import tqdm
 
 api = REST('PKY0AF1LLQM4SHJT290O', 'GMP58HBD35EhHhNBJAK46tsEUp2S6Ab0o3LGE7mc', 'https://paper-api.alpaca.markets')
 
 def get_stock_data(symbol, start_date, end_date):
     barset = api.get_bars(symbol, TimeFrame.Minute, start=start_date, end=end_date)
-    df = barset[symbol].df
+    df = barset.df
     return df
 
 def categorize_stocks(stock_list, liquidity_threshold):
@@ -25,7 +26,7 @@ def generate_stock_dataframes(stock_list, start_date, end_date, liquidity_thresh
     liquid_stocks, illiquid_stocks = categorize_stocks(stock_list, liquidity_threshold)
     stock_dataframes = {}
     
-    for stock in liquid_stocks + illiquid_stocks:
+    for stock in tqdm(liquid_stocks + illiquid_stocks):
         df = get_stock_data(stock, start_date, end_date)
         stock_dataframes[stock] = df
     
