@@ -48,22 +48,23 @@ def grid_search(stock_dataframes, param_grid):
         for Y in param_grid['Y']:
             for Z in param_grid['Z']:
                 for model_type in param_grid['model_type']:
-                    for architecture_params in param_grid['architecture']:
-                        test_loss, accuracy = train_and_evaluate(
-                            stock_dataframes, X, Y, Z, model_type, epochs,
-                            param_grid['batch_size'], param_grid['learning_rate'], architecture_params
-                        )
-                        result = {
-                            'X': X,
-                            'Y': Y,
-                            'Z': Z,
-                            'model_type': model_type,
-                            'epochs': 10,
-                            'test_loss': test_loss,
-                            'accuracy': accuracy
-                        }
-                        results.append(result)
-                        print(result)
+                    for epochs in param_grid['epochs']:
+                        for architecture_params in param_grid['architecture']:
+                            test_loss, accuracy = train_and_evaluate(
+                                stock_dataframes, X, Y, Z, model_type, epochs,
+                                param_grid['batch_size'], param_grid['learning_rate'], architecture_params
+                            )
+                            result = {
+                                'X': X,
+                                'Y': Y,
+                                'Z': Z,
+                                'model_type': model_type,
+                                'epochs': epochs,
+                                'test_loss': test_loss,
+                                'accuracy': accuracy
+                            }
+                            results.append(result)
+                            print(result)
     
     df_results = pd.DataFrame(results)
     df_results.to_csv('training_results.csv', index=False)
