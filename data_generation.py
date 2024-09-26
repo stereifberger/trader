@@ -1,6 +1,7 @@
 import pandas as pd
 from alpaca_trade_api.rest import REST
 import datetime
+from alpaca_trade_api.rest import TimeFrame
 
 api = REST('PKY0AF1LLQM4SHJT290O', 'GMP58HBD35EhHhNBJAK46tsEUp2S6Ab0o3LGE7mc', 'https://paper-api.alpaca.markets')
 
