@@ -2,10 +2,10 @@ import pandas as pd
 from alpaca_trade_api.rest import REST
 import datetime
 
-api = REST('YOUR_API_KEY', 'YOUR_API_SECRET', 'https://paper-api.alpaca.markets')
+api = REST('PKY0AF1LLQM4SHJT290O', 'GMP58HBD35EhHhNBJAK46tsEUp2S6Ab0o3LGE7mc', 'https://paper-api.alpaca.markets')
 
 def get_stock_data(symbol, start_date, end_date):
-    barset = api.get_barset(symbol, 'minute', start=start_date, end=end_date)
+    barset = api.get_bars(symbol, TimeFrame.Minute, start=start_date, end=end_date)
     df = barset[symbol].df
     return df
 
